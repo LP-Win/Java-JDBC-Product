@@ -18,7 +18,7 @@ public class ProductDaoImp implements ProductDao{
     public int save(Product product) throws SQLException{
 
         String sql = """
-                INSERT INTO products (code, name, price, qty, status)
+                INSERT INTO product (code, name, price, qty, status)
                 VALUES (?,?,?,?,?)
                 """;
 
@@ -39,15 +39,14 @@ public List<Product> findAll() throws SQLException {
 
         String sql = """
                 SELECT *
-                FROM Products
+                FROM product
                 """;
 
         ResultSet rs = stmt.executeQuery(sql);
         List<Product> products = new ArrayList<>();
 
-        while (rs.next()) {
+        while(rs.next()) {
             Product product = new Product();
-
             product.setId(rs.getInt("id"));
             product.setCode(rs.getString("code"));
             product.setName(rs.getString("name"));
@@ -57,10 +56,7 @@ public List<Product> findAll() throws SQLException {
 
             products.add(product);
         }
-
         return products;
-
-
     }
 
 }

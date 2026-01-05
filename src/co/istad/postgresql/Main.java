@@ -15,9 +15,10 @@ public class Main {
         DatabaseConfig.init();
         ProductService productService = new ProductServiceImp();
 
-        View.printMenu();
 
         do {
+            View.printMenu();
+
             int menu = InputUtil.getInteger("Enter menu option:");
             switch (menu){
                 case 0 -> System.exit(0);
@@ -34,7 +35,7 @@ public class Main {
                     String code = InputUtil.getText("Enter product code: ");
                     String name = InputUtil.getText("Enter product name: ");
                     BigDecimal price = InputUtil.getMoney("Enter product price: ");
-                    Integer qty = InputUtil.getInteger("Enter product code: ");
+                    Integer qty = InputUtil.getInteger("Enter product qty: ");
                     Product product = new Product(code,name,price,qty,true);
                     try {
                         productService.save(product);
@@ -48,33 +49,6 @@ public class Main {
                 default -> System.out.println("Invalid Option!!");
             }
         }while (true);
-
-
-
-
-//
-//        // Step 3: Establish connection
-//        try (Statement stmt = DatabaseConfig.getConn().createStatement();) {
-//            // 5
-//            ResultSet rs = stmt.executeQuery("""
-//                        SELECT * FROM product;
-//                    """);
-//            // 6
-//            while (rs.next()) {
-//                System.out.println(rs.getInt("id"));
-//                System.out.println(rs.getString("code"));
-//                System.out.println(rs.getString("name"));
-//                System.out.println(rs.getDouble("price"));
-//                System.out.println(rs.getInt("qty"));
-//                System.out.println(rs.getBoolean("status"));
-//            }
-//
-//            // 7
-//            DatabaseConfig.getConn().close();
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
 
     }
 }
