@@ -14,10 +14,10 @@ public class Main {
     public static void main(String[] args) {
         DatabaseConfig.init();
         ProductService productService = new ProductServiceImp();
-
+        View.printMenu();
 
         do {
-            View.printMenu();
+
 
             int menu = InputUtil.getInteger("Enter menu option:");
             switch (menu){
@@ -46,6 +46,40 @@ public class Main {
 
 
                 }
+                case 4 -> {
+                    View.printMenu();
+                    String code = InputUtil.getText("Enter product code: ");
+                    String name = InputUtil.getText("Enter product name: ");
+                    BigDecimal price = InputUtil.getMoney("Enter product price: ");
+                    Integer qty = InputUtil.getInteger("Enter product qty: ");
+
+                    Product product = new Product();
+                    product.setName(name);
+                    product.setPrice(price);
+                    product.setQty(qty);
+
+                    try{
+                        productService.updateByCode(code, product);
+                        View.printHeader("Update product successfully!!");
+                    } catch (RuntimeException e){
+                        View.printHeader(e.getMessage());
+                    }
+
+                }
+
+                case 5 -> {
+                    View.printHeader("Delete product by code");
+                    String code = InputUtil.getText("Enter code: ");
+
+                    try{
+                        productService.deleteByCode(code);
+                        View.printHeader("Product deleted successfully..!");
+                    } catch (RuntimeException e){
+                        View.printHeader(e.getMessage());
+                    }
+
+                }
+
                 default -> System.out.println("Invalid Option!!");
             }
         }while (true);
